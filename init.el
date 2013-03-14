@@ -1,5 +1,16 @@
 (server-start)
 
+(setq frame-title-format
+      (list (format "%s %%S: %%j " (system-name))
+        '(buffer-file-name "%f" (dired-directory dired-directory "%b"))))
+
+(defun show-file-name ()
+  "Show the full path file name in the minibuffer."
+  (interactive)
+  (message (buffer-file-name)))
+
+(global-set-key [C-f1] 'show-file-name)
+
 (require 'package)
 (setq package-archives
     '(("ELPA" . "http://tromey.com/elpa/")
@@ -11,6 +22,11 @@
 (menu-bar-mode 0)
 (tool-bar-mode 0)
 (scroll-bar-mode 0)
+
+; CUA mode for better rectangle selection
+(cua-mode t)
+(setq cua-enable-cua-keys nil)
+(setq cua-auto-tabify-rectangles nil)
 
 ; Highlight selected region
 (transient-mark-mode 1)
@@ -37,7 +53,8 @@
 ; Load autocomplete
 (add-to-list 'load-path "c:/Program Files/emacs/auto-complete-1.3.1")
 (require 'auto-complete)
-(global-auto-complete-mode t)
+(setq ac-auto-start 2)
+(setq ac-ignore-case t)
 ; (ac-set-trigger-key "RET")
 
 ; Load autopair
@@ -147,10 +164,54 @@
 (modify-frame-parameters nil '((wait-for-wm . nil)))
 
 (require 'tramp)
-(setq tramp-default-method "smx")
+(setq tramp-default-method "ssh")
 (setq tramp-debug-buffer t)
 
 (setq auto-mode-alist (cons '(".less" . less-css-mode) auto-mode-alist))
+
+(setq explicit-shell-file-name "e:/cygwin/bin/bash.exe")
+(add-hook 'comint-output-filter-functions
+    'shell-strip-ctrl-m nil t)
+(add-hook 'comint-output-filter-functions
+    'comint-watch-for-password-prompt nil t)
+;; For subprocesses invoked via the shell
+;; (e.g., "shell -c command")
+
+;; Unbind Pesky Sleep Button
+(global-unset-key [(control z)])
+(global-unset-key [(control x)(control z)])
+
+(setq css-indent-offset 2)
+
+(add-to-list 'load-path "~/.emacs.d/dirtree")
+(autoload 'dirtree "dirtree" "Add directory to tree view" t)
+(require 'dirtree)
+
+(setq ispell-program-name "aspell")
+(setq ispell-dictionary "english")
+
+(setq shell-file-name "bash")
+(setq explicit-bash.exe-args '("--noediting" "--login" "-i"))
+(setenv "SHELL" shell-file-name)
+(add-hook 'comint-output-filter-functions 'comint-strip-ctrl-m)
+
+(autoload 'ansi-color-for-comint-mode-on "ansi-color" nil t)
+(add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
+
+(setq scroll-conservatively 5)
+(setq scroll-margin 5)
+
+;; allow scroll-down/up-command to move point to buffer end/beginning
+(setq scroll-error-top-bottom 'true)
+
+;; setting the PC keyboard's various keys to
+;; Super or Hyper, for emacs running on Windows.
+(setq w32-pass-lwindow-to-system nil
+      w32-pass-rwindow-to-system nil
+      w32-pass-apps-to-system nil
+      w32-lwindow-modifier 'super ; Left Windows key
+      w32-rwindow-modifier 'super ; Right Windows key
+      w32-apps-modifier 'hyper) ; Menu key
 
 (custom-set-variables
   ;; custom-set-variables was added by Custom.
