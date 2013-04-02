@@ -271,3 +271,5 @@
     (selection-face . ac-etags-selection-face)
     (requires . 3))
   "Source for etags.")
+
+(iswitchb-mode)
