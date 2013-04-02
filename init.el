@@ -1,4 +1,7 @@
-(server-start)
+;; Emacs server
+(require 'server)
+(unless (server-running-p)
+  (server-start))
 
 (setq frame-title-format
       (list (format "%s %%S: %%j " (system-name))
