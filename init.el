@@ -22,8 +22,6 @@
   (interactive)
   (message (buffer-file-name)))
 
-(global-set-key [C-f1] 'show-file-name)
-
 (require 'package)
 (setq package-archives
     '(("ELPA" . "http://tromey.com/elpa/")
@@ -52,9 +50,6 @@
 (defun other-window-reverse ()
   (interactive)
   (other-window -1))
-
-(global-set-key (kbd "<C-tab>") 'other-window)
-(global-set-key (kbd "<C-S-tab>") 'other-window-reverse)
 
 (auto-fill-mode 1)
 (setq comment-auto-fill-only-comments t)
@@ -91,7 +86,6 @@
                  (backward-char 1)
                  (kill-line arg))
         (kill-line arg)))
-(global-set-key "\C-k" 'kill-and-join-forward)
 
 (defun set-window-width (n)
   "Set the selected window's width."
@@ -103,8 +97,6 @@
   (set-window-width 80))
 
 (require 'cmake-mode)
-
-(global-set-key "\C-x~" 'set-80-columns)
 
 ; Show parens
 (show-paren-mode 1)
@@ -148,7 +140,6 @@
   (let ((buffer-read-only t)
     (kill-read-only-ok t))
     (kill-line arg)))
-(global-set-key "\M-k" 'copy-line)
 
 ;(if window-system (require 'caml-font))
 
@@ -192,10 +183,6 @@
 ;; For subprocesses invoked via the shell
 ;; (e.g., "shell -c command")
 
-;; Unbind Pesky Sleep Button
-(global-unset-key [(control z)])
-(global-unset-key [(control x)(control z)])
-
 (setq css-indent-offset 2)
 
 (add-to-list 'load-path "~/.emacs.d/dirtree")
@@ -230,7 +217,6 @@
              (current-buffer))
     (error (message "Invalid expression")
            (insert (current-kill 0)))))
-(global-set-key (kbd "C-x C-e") 'eval-and-replace)
 
 ;; setting the PC keyboard's various keys to
 ;; Super or Hyper, for emacs running on Windows.
@@ -273,3 +259,6 @@
   "Source for etags.")
 
 (iswitchb-mode)
+
+;; Setup key bindings
+(require 'key-bindings)
