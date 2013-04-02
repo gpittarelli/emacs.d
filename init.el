@@ -89,6 +89,8 @@
   (interactive)
   (set-window-width 80))
 
+(require 'cmake-mode)
+
 (global-set-key "\C-x~" 'set-80-columns)
 
 ; Show parens
@@ -240,3 +242,19 @@
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
  )
+
+(defface ac-etags-candidate-face
+  '((t (:background "gainsboro" :foreground "deep sky blue")))
+  "Face for etags candidate")
+
+(defface ac-etags-selection-face
+  '((t (:background "deep sky blue" :foreground "white")))
+  "Face for the etags selected candidate.")
+
+(defvar ac-source-etags
+  '((candidates . (lambda ()
+                    (all-completions ac-target (tags-completion-table))))
+    (candidate-face . ac-etags-candidate-face)
+    (selection-face . ac-etags-selection-face)
+    (requires . 3))
+  "Source for etags.")
