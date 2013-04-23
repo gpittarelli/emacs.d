@@ -11,15 +11,15 @@
 ;; Install extensions if they're missing
 (defun init--install-packages ()
   (packages-install
-   (cons 'auto-complete elpa)
-   (cons 'autopair elpa)
-   (cons 'cmake-mode elpa)
-   (cons 'sws-mode elpa)
-   (cons 'jade-mode elpa)
-   (cons 'markdown-mode elpa)
-   (cons 'markdown-mode elpa)
-   (cons 'multi-web-mode elpa)
-   (cons 'color-theme elpa)
+   (cons 'auto-complete melpa)
+   (cons 'autopair melpa)
+   (cons 'cmake-mode melpa)
+   (cons 'sws-mode melpa)
+   (cons 'jade-mode melpa)
+   (cons 'markdown-mode melpa)
+   (cons 'markdown-mode melpa)
+   (cons 'multi-web-mode melpa)
+   (cons 'color-theme melpa)
    (cons 'gitignore-mode melpa)))
 
 (condition-case nil
