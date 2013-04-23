@@ -3,6 +3,8 @@
 (unless (server-running-p)
   (server-start))
 
+(add-to-list 'load-path "~/.emacs.d")
+
 ;; Setup packages
 (require 'setup-package)
 
@@ -76,7 +78,6 @@
 
 ; Load autocomplete
 (add-to-list 'load-path "c:/Program Files/emacs/auto-complete-1.3.1")
-(add-to-list 'load-path "~/.emacs.d")
 (require 'auto-complete)
 (setq ac-auto-start 2)
 (setq ac-ignore-case t)
