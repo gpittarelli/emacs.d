@@ -4,17 +4,27 @@
   (server-start))
 
 ;; Setup packages
-;;(require 'setup-package)
+(require 'setup-package)
 
 ;; Install extensions if they're missing
-;;(defun init--install-packages ()
-;;  (packages-install))
+(defun init--install-packages ()
+  (packages-install
+   (cons 'auto-complete elpa)
+   (cons 'autopair elpa)
+   (cons 'cmake-mode elpa)
+   (cons 'sws-mode elpa)
+   (cons 'jade-mode elpa)
+   (cons 'markdown-mode elpa)
+   (cons 'markdown-mode elpa)
+   (cons 'multi-web-mode elpa)
+   (cons 'color-theme elpa)
+   (cons 'gitignore-mode melpa)))
 
-;;(condition-case nil
-;;    (init--install-packages)
-;;  (error
-;;   (package-refresh-contents)
-;;   (init--install-packages)))
+(condition-case nil
+    (init--install-packages)
+  (error
+   (package-refresh-contents)
+   (init--install-packages)))
 
 ;; Answering just 'y' or 'n' will do
 (defalias 'yes-or-no-p 'y-or-n-p)
@@ -34,13 +44,6 @@
   "Show the full path file name in the minibuffer."
   (interactive)
   (message (buffer-file-name)))
-
-(require 'package)
-(setq package-archives
-    '(("ELPA" . "http://tromey.com/elpa/")
-      ("gnu" . "http://elpa.gnu.org/packages/")
-      ("marmalade" . "http://marmalade-repo.org/packages/")))
-(package-initialize)
 
 ; Disable annoying gui stuff
 (menu-bar-mode 0)
