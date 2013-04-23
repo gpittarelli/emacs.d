@@ -3,6 +3,19 @@
 (unless (server-running-p)
   (server-start))
 
+;; Setup packages
+;;(require 'setup-package)
+
+;; Install extensions if they're missing
+;;(defun init--install-packages ()
+;;  (packages-install))
+
+;;(condition-case nil
+;;    (init--install-packages)
+;;  (error
+;;   (package-refresh-contents)
+;;   (init--install-packages)))
+
 ;; Answering just 'y' or 'n' will do
 (defalias 'yes-or-no-p 'y-or-n-p)
 
@@ -60,6 +73,7 @@
 
 ; Load autocomplete
 (add-to-list 'load-path "c:/Program Files/emacs/auto-complete-1.3.1")
+(add-to-list 'load-path "~/.emacs.d")
 (require 'auto-complete)
 (setq ac-auto-start 2)
 (setq ac-ignore-case t)
@@ -164,8 +178,18 @@
                       (setq indent-tabs-mode nil
                             tab-width 2))))
 
+(require 'multi-web-mode)
+(setq mweb-default-major-mode 'html-mode)
+(setq mweb-tags '((php-mode "<\\?php\\|<\\? \\|<\\?=" "\\?>")
+                  (js-mode "<script +\\(type=\"text/javascript\"\\|language=\"javascript\"\\)[^>]*>" "</script>")
+                  (css-mode "<style +type=\"text/css\"[^>]*>" "</style>")))
+(setq mweb-filename-extensions '("php" "htm" "html" "ctp" "phtml" "php4" "php5"))
+(multi-web-global-mode 1)
+
+(require 'color-theme)
+
 (auto-fill-mode)
-(delete-selection-mode 1)
+(delete-selection-mode nil)
 
 (modify-frame-parameters nil '((wait-for-wm . nil)))
 
