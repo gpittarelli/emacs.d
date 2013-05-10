@@ -8,9 +8,8 @@
 ;; Setup packages
 (require 'setup-package)
 
-;; Install extensions if they're missing
-(defun init--install-packages ()
-  (packages-install
+;; Install any missing packages
+(add-desired-packages
    (cons 'auto-complete melpa)
    (cons 'autopair melpa)
    (cons 'cmake-mode marmalade)
@@ -19,23 +18,23 @@
    (cons 'markdown-mode marmalade)
    (cons 'multi-web-mode melpa)
    (cons 'color-theme melpa)
-   (cons 'gitignore-mode melpa)))
+   (cons 'gitignore-mode melpa))
 
-(condition-case nil
-    (init--install-packages)
-  (error
-   (package-refresh-contents)
-   (init--install-packages)))
+(if (eq system-type 'windows-nt)
+    (add-desired-packages
+     (cons 'cygwin-mount marmalade)))
+
+(packages-install-desired)
 
 ;; Answering just 'y' or 'n' will do
 (defalias 'yes-or-no-p 'y-or-n-p)
 
 ;; UTF-8 please
-(setq locale-coding-system 'utf-8) ; pretty
-(set-terminal-coding-system 'utf-8) ; pretty
-(set-keyboard-coding-system 'utf-8) ; pretty
-(set-selection-coding-system 'utf-8) ; please
-(prefer-coding-system 'utf-8) ; with sugar on top
+(setq locale-coding-system 'utf-8-unix) ; pretty
+(set-terminal-coding-system 'utf-8-unix) ; pretty
+(set-keyboard-coding-system 'utf-8-unix) ; pretty
+(set-selection-coding-system 'utf-8-unix) ; please
+(prefer-coding-system 'utf-8-unix) ; with sugar on top
 
 (setq frame-title-format
       (list (format "%s %%S: %%j " (system-name))
