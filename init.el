@@ -26,6 +26,42 @@
 
 (packages-install-desired)
 
+(if (eq system-type 'windows-nt)
+    (progn
+      (setenv "PATH" (concat "e:/cygwin/bin;" (getenv "PATH")))
+      (setq exec-path (cons "e:/cygwin/bin/" exec-path))
+      (require 'cygwin-mount)
+      (require 'setup-cygwin)
+      (setq w32shell-cygwin-bin "e:\\cygwin\\bin")
+      (require 'w32shell)
+
+      (w32shell-add-emacs)
+      (w32shell-set-shell "cygwin")
+
+      (defun cygwin-shell ()
+        "Run cygwin bash in shell mode."
+        (interactive)
+        (let ((explicit-shell-file-name "E:/cygwin/bin/bash"))
+          (call-interactively 'shell)))
+      ))
+
+;;       (cygwin-mount-activate)
+
+;;       (add-to-list 'load-path "~/.emacs.d/cygwin-link")
+;;       (require 'cygwin-link)
+;;       (require 'cygwin32-symlink)
+
+;;       (add-hook 'comint-output-filter-functions
+;;                 'shell-strip-ctrl-m nil t)
+;;       (add-hook 'comint-output-filter-functions
+;;                 'comint-watch-for-password-prompt nil t)
+
+;;       ;; For subprocesses invoked via the shell
+;;       ;; (e.g., "shell -c command")
+;;       (setq explicit-shell-file-name "bash.exe")
+;;       (setenv "SHELL" explicit-shell-file-name)
+;;       (setq shell-file-name explicit-shell-file-name)
+
 ;; Answering just 'y' or 'n' will do
 (defalias 'yes-or-no-p 'y-or-n-p)
 
@@ -200,14 +236,6 @@
 (setq tramp-debug-buffer t)
 
 (setq auto-mode-alist (cons '(".less" . less-css-mode) auto-mode-alist))
-
-(setq explicit-shell-file-name "e:/cygwin/bin/bash.exe")
-(add-hook 'comint-output-filter-functions
-    'shell-strip-ctrl-m nil t)
-(add-hook 'comint-output-filter-functions
-    'comint-watch-for-password-prompt nil t)
-;; For subprocesses invoked via the shell
-;; (e.g., "shell -c command")
 
 (setq css-indent-offset 2)
 
