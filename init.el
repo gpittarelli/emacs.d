@@ -18,7 +18,9 @@
    (cons 'markdown-mode marmalade)
    (cons 'multi-web-mode melpa)
    (cons 'color-theme melpa)
-   (cons 'gitignore-mode melpa))
+   (cons 'gitignore-mode melpa)
+   (cons 'flymake-cursor melpa)
+   (cons 'multiple-cursors melpa))
 
 (if (eq system-type 'windows-nt)
     (add-desired-packages
@@ -111,14 +113,12 @@
 (setq-default save-place t)
 
 ; Load autocomplete
-(add-to-list 'load-path "c:/Program Files/emacs/auto-complete-1.3.1")
 (require 'auto-complete)
 (setq ac-auto-start 2)
 (setq ac-ignore-case t)
 ; (ac-set-trigger-key "RET")
 
 ; Load autopair
-(add-to-list 'load-path "~/.emacs.d/autopair")
 (require 'autopair)
 (setq autopair-autowrap t)
 (autopair-global-mode t)
