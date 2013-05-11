@@ -1,0 +1,6 @@
+[submodule "cygwin-link"]
+	path = cygwin-link
+	url = git://github.com/emacsmirror/cygwin-link.git
+[submodule "jshint-mode"]
+	path = jshint-mode
+	url = git://github.com/daleharvey/jshint-mode.git
