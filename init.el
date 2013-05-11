@@ -316,3 +316,14 @@
 
 ;; Setup key bindings
 (require 'key-bindings)
+
+(add-to-list 'load-path "~/.emacs.d/jshint-mode")
+(require 'flymake-jshint)
+(add-hook 'javascript-mode-hook
+     (lambda () (flymake-mode t)))
+
+;; Turns on flymake for all files which have a flymake mode
+(add-hook 'find-file-hook 'flymake-find-file-hook)
+
+(require 'flymake-cursor)
+(require 'multiple-cursors)
