@@ -12,6 +12,7 @@
 ;; C-tab and C-S-tab between windows
 (global-set-key (kbd "<C-tab>") 'other-window)
 (global-set-key (kbd "<C-S-tab>") 'other-window-reverse)
+(global-set-key (kbd "<C-S-iso-lefttab>") 'other-window-reverse)
 
 ;; Better line killing
 (global-set-key (kbd "C-k") 'kill-and-join-forward)
