@@ -19,7 +19,10 @@
    (cons 'multi-web-mode melpa)
    (cons 'color-theme melpa)
    (cons 'gitignore-mode melpa)
+   (cons 'flymake-jshint melpa)
    (cons 'flymake-cursor melpa)
+   (cons 'ctags melpa)
+   (cons 'ctags-update melpa)
    (cons 'multiple-cursors melpa))
 
 (if (eq system-type 'windows-nt)
@@ -282,18 +285,19 @@
       w32-apps-modifier 'hyper) ; Menu key
 
 (custom-set-variables
-  ;; custom-set-variables was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(comint-completion-addsuffix (quote ("\\" . " ")))
  '(comment-style (quote plain))
- '(desktop-save-mode t))
+ '(desktop-save-mode t)
+ '(safe-local-variable-values (quote ((c-set-style . "BSD")))))
 (custom-set-faces
-  ;; custom-set-faces was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  )
 
 (defface ac-etags-candidate-face
@@ -327,3 +331,11 @@
 
 (require 'flymake-cursor)
 (require 'multiple-cursors)
+(require 'ctags)
+(require 'ctags-update)
+
+;; Show flymake errors (Like 'no makefile found for file') in the
+;; minibuffer instead of popping up annoying modal dialog boxes.
+(defun flymake-display-warning (warning)
+  "Display a warning to the user, using lwarn"
+  (message warning))
