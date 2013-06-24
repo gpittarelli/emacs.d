@@ -20,6 +20,8 @@
 ;; Set buffers to 80 col
 (global-set-key (kbd "C-x ~") 'set-80-columns)
 
+(global-set-key (kbd "C-!") 'mc/edit-lines)
+
 ;; Sane M-k function (M-k is to C-k what M-w is to C-w)
 (global-set-key "\M-k" 'copy-line)
 
