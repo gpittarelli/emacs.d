@@ -25,6 +25,9 @@
    (cons 'ctags-update melpa)
    (cons 'multiple-cursors melpa))
 
+(add-to-list 'load-path "~/emacs.d/emmet-mode")
+(require 'emmet-mode)
+
 (if (eq system-type 'windows-nt)
     (add-desired-packages
      (cons 'cygwin-mount marmalade)))
@@ -49,6 +52,10 @@
         (let ((explicit-shell-file-name "E:/cygwin/bin/bash"))
           (call-interactively 'shell)))
       ))
+
+(if (eq system-type 'gnu/linux)
+    (progn
+      (require 'linux-custom)))
 
 ;;       (cygwin-mount-activate)
 
@@ -339,3 +346,4 @@
 (defun flymake-display-warning (warning)
   "Display a warning to the user, using lwarn"
   (message warning))
+(put 'downcase-region 'disabled nil)
