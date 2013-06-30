@@ -25,8 +25,11 @@
    (cons 'ctags-update melpa)
    (cons 'multiple-cursors melpa))
 
-(add-to-list 'load-path "~/emacs.d/emmet-mode")
+(add-to-list 'load-path "~/.emacs.d/emmet")
 (require 'emmet-mode)
+(add-hook 'sgml-mode-hook 'emmet-mode)
+(add-hook 'html-mode-hook 'emmet-mode)
+(add-hook 'css-mode-hook  'emmet-mode)
 
 (if (eq system-type 'windows-nt)
     (add-desired-packages
