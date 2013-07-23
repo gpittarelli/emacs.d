@@ -23,13 +23,10 @@
    (cons 'flymake-cursor melpa)
    (cons 'ctags melpa)
    (cons 'ctags-update melpa)
-   (cons 'multiple-cursors melpa))
-
-(add-to-list 'load-path "~/.emacs.d/emmet")
-(require 'emmet-mode)
-(add-hook 'sgml-mode-hook 'emmet-mode)
-(add-hook 'html-mode-hook 'emmet-mode)
-(add-hook 'css-mode-hook  'emmet-mode)
+   (cons 'multiple-cursors melpa)
+   (cons 'browse-kill-ring melpa)
+   (cons 'ack melpa)
+   (cons 'ace-jump-mode melpa))
 
 (if (eq system-type 'windows-nt)
     (add-desired-packages
@@ -76,6 +73,13 @@
 ;;       (setq explicit-shell-file-name "bash.exe")
 ;;       (setenv "SHELL" explicit-shell-file-name)
 ;;       (setq shell-file-name explicit-shell-file-name)
+
+
+(add-to-list 'load-path "~/.emacs.d/emmet")
+(require 'emmet-mode)
+(add-hook 'sgml-mode-hook 'emmet-mode)
+(add-hook 'html-mode-hook 'emmet-mode)
+(add-hook 'css-mode-hook  'emmet-mode)
 
 ;; Answering just 'y' or 'n' will do
 (defalias 'yes-or-no-p 'y-or-n-p)
@@ -339,10 +343,21 @@
 ;; Turns on flymake for all files which have a flymake mode
 (add-hook 'find-file-hook 'flymake-find-file-hook)
 
+(require 'ace-jump-mode)
+(autoload
+  'ace-jump-mode
+  "ace-jump-mode"
+  "Emacs quick move minor mode"
+  t)
+
+(require 'browse-kill-ring)
+
 (require 'flymake-cursor)
 (require 'multiple-cursors)
 (require 'ctags)
 (require 'ctags-update)
+
+(defalias 'grep 'ack)
 
 ;; Show flymake errors (Like 'no makefile found for file') in the
 ;; minibuffer instead of popping up annoying modal dialog boxes.
