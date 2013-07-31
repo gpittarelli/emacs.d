@@ -20,7 +20,10 @@
    (cons 'color-theme melpa)
    (cons 'gitignore-mode melpa)
    (cons 'flymake-cursor melpa)
-   (cons 'multiple-cursors melpa))
+   (cons 'multiple-cursors melpa)
+   (cons 'less-css-mode melpa)
+   (cons 'rfringe melpa)
+   (cons 'minimap melpa))
 
 (if (eq system-type 'windows-nt)
     (add-desired-packages
@@ -327,3 +330,5 @@
 
 (require 'flymake-cursor)
 (require 'multiple-cursors)
+(require 'rfringe)
+(require 'minimap)
