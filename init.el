@@ -26,7 +26,8 @@
    (cons 'multiple-cursors melpa)
    (cons 'browse-kill-ring melpa)
    (cons 'ack melpa)
-   (cons 'ace-jump-mode melpa))
+   (cons 'ace-jump-mode melpa)
+   (cons 'edit-server melpa))
 
 (if (eq system-type 'windows-nt)
     (add-desired-packages
@@ -179,6 +180,13 @@
 (set-foreground-color "white")
 (set-cursor-color "orange")
 
+; Preserve colors in new frames
+(setq default-frame-alist
+      (append default-frame-alist
+       '((foreground-color . "white")
+         (background-color . "black")
+         (cursor-color . "orange"))))
+
 ; Don't echo command line
 (setq explicit-cmd.exe-args '("/q"))
 (setq explicit-cmdproxy.exe-args '("/q"))
@@ -330,7 +338,11 @@
     (requires . 3))
   "Source for etags.")
 
-(iswitchb-mode)
+(iswitchb-mode 1)
+(icomplete-mode 1)
+
+; undo/redo for window configurations
+(winner-mode 1)
 
 ;; Setup key bindings
 (require 'key-bindings)
@@ -356,6 +368,9 @@
 (require 'multiple-cursors)
 (require 'ctags)
 (require 'ctags-update)
+
+(require 'edit-server)
+(setq edit-server-new-frame 'nil)
 
 (defalias 'grep 'ack)
 
