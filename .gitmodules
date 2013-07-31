@@ -4,3 +4,6 @@
 [submodule "jshint-mode"]
 	path = jshint-mode
 	url = git://github.com/daleharvey/jshint-mode.git
+[submodule "emmet"]
+	path = emmet
+	url = https://github.com/smihica/emmet.git

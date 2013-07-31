@@ -19,11 +19,18 @@
    (cons 'multi-web-mode melpa)
    (cons 'color-theme melpa)
    (cons 'gitignore-mode melpa)
+   (cons 'flymake-jshint melpa)
    (cons 'flymake-cursor melpa)
    (cons 'multiple-cursors melpa)
    (cons 'less-css-mode melpa)
    (cons 'rfringe melpa)
-   (cons 'minimap melpa))
+   (cons 'minimap melpa)
+   (cons 'ctags melpa)
+   (cons 'ctags-update melpa)
+   (cons 'browse-kill-ring melpa)
+   (cons 'ack melpa)
+   (cons 'ace-jump-mode melpa)
+   (cons 'edit-server melpa))
 
 (if (eq system-type 'windows-nt)
     (add-desired-packages
@@ -50,6 +57,10 @@
           (call-interactively 'shell)))
       ))
 
+(if (eq system-type 'gnu/linux)
+    (progn
+      (require 'linux-custom)))
+
 ;;       (cygwin-mount-activate)
 
 ;;       (add-to-list 'load-path "~/.emacs.d/cygwin-link")
@@ -66,6 +77,13 @@
 ;;       (setq explicit-shell-file-name "bash.exe")
 ;;       (setenv "SHELL" explicit-shell-file-name)
 ;;       (setq shell-file-name explicit-shell-file-name)
+
+
+(add-to-list 'load-path "~/.emacs.d/emmet")
+(require 'emmet-mode)
+(add-hook 'sgml-mode-hook 'emmet-mode)
+(add-hook 'html-mode-hook 'emmet-mode)
+(add-hook 'css-mode-hook  'emmet-mode)
 
 ;; Answering just 'y' or 'n' will do
 (defalias 'yes-or-no-p 'y-or-n-p)
@@ -164,6 +182,13 @@
 (set-background-color "black")
 (set-foreground-color "white")
 (set-cursor-color "orange")
+
+; Preserve colors in new frames
+(setq default-frame-alist
+      (append default-frame-alist
+       '((foreground-color . "white")
+         (background-color . "black")
+         (cursor-color . "orange"))))
 
 ; Don't echo command line
 (setq explicit-cmd.exe-args '("/q"))
@@ -285,18 +310,19 @@
       w32-apps-modifier 'hyper) ; Menu key
 
 (custom-set-variables
-  ;; custom-set-variables was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(comint-completion-addsuffix (quote ("\\" . " ")))
  '(comment-style (quote plain))
- '(desktop-save-mode t))
+ '(desktop-save-mode t)
+ '(safe-local-variable-values (quote ((c-set-style . "BSD")))))
 (custom-set-faces
-  ;; custom-set-faces was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  )
 
 (defface ac-etags-candidate-face
@@ -315,7 +341,11 @@
     (requires . 3))
   "Source for etags.")
 
-(iswitchb-mode)
+(iswitchb-mode 1)
+(icomplete-mode 1)
+
+; undo/redo for window configurations
+(winner-mode 1)
 
 ;; Setup key bindings
 (require 'key-bindings)
@@ -328,7 +358,33 @@
 ;; Turns on flymake for all files which have a flymake mode
 (add-hook 'find-file-hook 'flymake-find-file-hook)
 
+(require 'ace-jump-mode)
+(autoload
+  'ace-jump-mode
+  "ace-jump-mode"
+  "Emacs quick move minor mode"
+  t)
+
+(require 'browse-kill-ring)
+
 (require 'flymake-cursor)
 (require 'multiple-cursors)
+<<<<<<< HEAD
 (require 'rfringe)
 (require 'minimap)
+=======
+(require 'ctags)
+(require 'ctags-update)
+
+(require 'edit-server)
+(setq edit-server-new-frame 'nil)
+
+(defalias 'grep 'ack)
+
+;; Show flymake errors (Like 'no makefile found for file') in the
+;; minibuffer instead of popping up annoying modal dialog boxes.
+(defun flymake-display-warning (warning)
+  "Display a warning to the user, using lwarn"
+  (message warning))
+(put 'downcase-region 'disabled nil)
+>>>>>>> 203507f95d9c098182ac0ce744b6a125f3967680
