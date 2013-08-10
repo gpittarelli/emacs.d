@@ -369,10 +369,8 @@
 
 (require 'flymake-cursor)
 (require 'multiple-cursors)
-<<<<<<< HEAD
 (require 'rfringe)
 (require 'minimap)
-=======
 (require 'ctags)
 (require 'ctags-update)
 
@@ -387,4 +385,3 @@
   "Display a warning to the user, using lwarn"
   (message warning))
 (put 'downcase-region 'disabled nil)
->>>>>>> 203507f95d9c098182ac0ce744b6a125f3967680
