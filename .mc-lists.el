@@ -3,13 +3,28 @@
 
 (setq mc/cmds-to-run-for-all
       '(
+        autopair-insert-opening
+        autopair-insert-or-skip-quote
+        autopair-skip-close-maybe
+        cua-clear-rectangle-mark
+        cua-copy-region
         cua-cut-region
+        cua-insert-char-rectangle
         cua-paste
+        eval-and-replace
+        fill-paragraph
         indent-for-tab-command
         kill-and-join-forward
+        kmacro-end-and-call-macro
+        perl-indent-command
         tcl-electric-hash
+        tcl-indent-command
+        transpose-words
         ))
 
 (setq mc/cmds-to-run-once
       '(
+        cua-set-rectangle-mark
+        mouse-buffer-menu
+        write-file
         ))
