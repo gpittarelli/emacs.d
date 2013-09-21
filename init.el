@@ -385,3 +385,36 @@
   "Display a warning to the user, using lwarn"
   (message warning))
 (put 'downcase-region 'disabled nil)
+
+(defun next-file-with-basename ()
+  "Cycles between files with the same basename as the given file.
+   Usefull for cycling between header .h/.cpp/.hpp files etc."
+  (interactive)
+  (let* ((buf-file-name (replace-regexp-in-string
+                         "^.*/" ""
+                         (buffer-file-name)))
+         (current-dir (replace-regexp-in-string
+                       "[a-zA-Z0-9._-]+$" ""
+                       (buffer-file-name)))
+         (no-basename (equal ?. (aref buf-file-name 0)))
+         (has-extension (find ?. buf-file-name)))
+    ;; If the file is a .dot-file or it doesn't have an
+    ;; extension, then there's nothing to do here.
+    (unless (or no-basename (not has-extension))
+      (let* ((basename (replace-regexp-in-string
+                        "\\..*" ""
+                        buf-file-name))
+             (files-with-basename (directory-files
+                                   current-dir
+                                   (concat "^" basename "\\."))))
+        ;; If there's only 1 file with this basename, nothing to
+        ;; do
+        (unless (= (length files-with-basename) 1)
+          ;; By making the list circular, we're guaranteed that
+          ;; there will always be a next list element (ie. no
+          ;; need for special case when file is at the end of
+          ;; the list).
+          (setf (cdr (last files-with-basename))
+                files-with-basename)
+          (find-file (cadr (member (buffer-file-name)
+                                   files-with-basename))))))))
