@@ -29,6 +29,8 @@
 
 (global-set-key (kbd "C-c k") 'browse-kill-ring)
 
+(global-set-key (kbd "C-c n") 'next-file-with-basename)
+
 ; C-c SPC, C-u C-c SPC, and C-u C-u C-c SPC are all used by this mode
 (define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
 

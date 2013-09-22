@@ -8,29 +8,28 @@
 ;; Setup packages
 (require 'setup-package)
 
-;; Install any missing packages
 (add-desired-packages
-   (cons 'auto-complete melpa)
-   (cons 'autopair melpa)
-   (cons 'cmake-mode marmalade)
-   (cons 'sws-mode marmalade)
-   (cons 'jade-mode marmalade)
-   (cons 'markdown-mode marmalade)
-   (cons 'multi-web-mode melpa)
-   (cons 'color-theme melpa)
-   (cons 'gitignore-mode melpa)
-   (cons 'flymake-jshint melpa)
-   (cons 'flymake-cursor melpa)
-   (cons 'multiple-cursors melpa)
-   (cons 'less-css-mode melpa)
-   (cons 'rfringe melpa)
-   (cons 'minimap melpa)
-   (cons 'ctags melpa)
-   (cons 'ctags-update melpa)
-   (cons 'browse-kill-ring melpa)
-   (cons 'ack melpa)
-   (cons 'ace-jump-mode melpa)
-   (cons 'edit-server melpa))
+ '(auto-complete
+   autopair
+   cmake-mode
+   sws-mode
+   jade-mode
+   markdown-mode
+   multi-web-mode
+   color-theme
+   gitignore-mode
+   flymake-jshint
+   flymake-cursor
+   multiple-cursors
+   less-css-mode
+   rfringe
+   minimap
+   ctags
+   ctags-update
+   browse-kill-ring
+   ack
+   ace-jump-mode
+   edit-server))
 
 (if (eq system-type 'windows-nt)
     (add-desired-packages
@@ -387,3 +386,36 @@
 (put 'downcase-region 'disabled nil)
 
 (set-default 'tramp-default-proxies-alist (quote ((".*" "\\`root\\'" "/ssh:%h:"))))
+
+(defun next-file-with-basename ()
+  "Cycles between files with the same basename as the given file.
+   Usefull for cycling between header .h/.cpp/.hpp files etc."
+  (interactive)
+  (let* ((buf-file-name (replace-regexp-in-string
+                         "^.*/" ""
+                         (buffer-file-name)))
+         (current-dir (replace-regexp-in-string
+                       "[a-zA-Z0-9._-]+$" ""
+                       (buffer-file-name)))
+         (no-basename (equal ?. (aref buf-file-name 0)))
+         (has-extension (find ?. buf-file-name)))
+    ;; If the file is a .dot-file or it doesn't have an
+    ;; extension, then there's nothing to do here.
+    (unless (or no-basename (not has-extension))
+      (let* ((basename (replace-regexp-in-string
+                        "\\..*" ""
+                        buf-file-name))
+             (files-with-basename (directory-files
+                                   current-dir
+                                   (concat "^" basename "\\."))))
+        ;; If there's only 1 file with this basename, nothing to
+        ;; do
+        (unless (= (length files-with-basename) 1)
+          ;; By making the list circular, we're guaranteed that
+          ;; there will always be a next list element (ie. no
+          ;; need for special case when file is at the end of
+          ;; the list).
+          (setf (cdr (last files-with-basename))
+                files-with-basename)
+          (find-file (cadr (member (buffer-file-name)
+                                   files-with-basename))))))))

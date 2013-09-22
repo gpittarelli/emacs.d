@@ -23,27 +23,35 @@
 
 (defun packages-install (&rest packages)
   (mapc (lambda (package)
-          (let ((name (car package))
-                (repo (cdr package)))
-            (when (not (package-installed-p name))
-              (let ((package-archives (list repo)))
-                (package-initialize)
-                (package-install name)))))
-        packages)
-  (package-initialize)
-  (delete-other-windows))
+          (when (not (package-installed-p package))
+            (package-install package)))
+  packages))
 
-(defun init--install-packages ()
-  (apply 'packages-install packages-desired))
+(defun packages--filter (condp lst)
+  (delq nil
+        (mapcar (lambda (x) (and (funcall condp x) x)) lst)))
+
+(defun get-missing-packages ()
+  (packages--filter (lambda (x)
+                      (not (package-installed-p x)))
+                    packages-desired))
 
 (defun packages-install-desired ()
-  (condition-case nil
-      (init--install-packages)
-    (error
-     (package-refresh-contents)
-     (init--install-packages))))
+  (let ((needed-packages (get-missing-packages)))
+    (message "Needed: %s" needed-packages)
+    (when needed-packages
+      (message "%s" "Refreshing package index...")
+      (package-refresh-contents)
+      (message "%s" "Installing packages...")
+      (apply 'packages-install packages-desired)
+      (message "%s" "Done installing packages."))))
 
-(defun add-desired-packages (&rest packages)
-  (nconc packages-desired packages))
+(defun add-desired-packages (packages)
+  (message "Packs now: %s" packages-desired)
+  (message "add: %s" packages)
+  (if packages-desired
+      (nconc packages-desired packages)
+      (setq packages-desired packages))
+  (message "and now: %s" packages-desired))
 
 (provide 'setup-package)
