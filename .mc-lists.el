@@ -3,11 +3,16 @@
 
 (setq mc/cmds-to-run-for-all
       '(
+        TeX-insert-backslash
+        autopair-insert-opening
+        autopair-insert-or-skip-quote
+        autopair-skip-close-maybe
+        copy-line
         cua-cut-region
         cua-paste
+        fill-paragraph
         indent-for-tab-command
         kill-and-join-forward
-        tcl-electric-hash
         ))
 
 (setq mc/cmds-to-run-once
