@@ -385,3 +385,5 @@
   "Display a warning to the user, using lwarn"
   (message warning))
 (put 'downcase-region 'disabled nil)
+
+(set-default 'tramp-default-proxies-alist (quote ((".*" "\\`root\\'" "/ssh:%h:"))))
