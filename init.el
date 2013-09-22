@@ -33,7 +33,7 @@
 
 (if (eq system-type 'windows-nt)
     (add-desired-packages
-     (cons 'cygwin-mount marmalade)))
+     '(cygwin-mount)))
 
 (packages-install-desired)
 
@@ -77,6 +77,9 @@
 ;;       (setenv "SHELL" explicit-shell-file-name)
 ;;       (setq shell-file-name explicit-shell-file-name)
 
+
+(add-to-list 'load-path "~/.emacs.d/org-caldav")
+(require 'org-caldav)
 
 (add-to-list 'load-path "~/.emacs.d/emmet")
 (require 'emmet-mode)
