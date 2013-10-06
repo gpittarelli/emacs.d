@@ -6,6 +6,7 @@
         autopair-insert-opening
         autopair-insert-or-skip-quote
         autopair-skip-close-maybe
+        c-electric-delete-forward
         cua-clear-rectangle-mark
         cua-copy-region
         cua-cut-region
