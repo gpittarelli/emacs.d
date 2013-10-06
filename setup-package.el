@@ -47,11 +47,8 @@
       (message "%s" "Done installing packages."))))
 
 (defun add-desired-packages (packages)
-  (message "Packs now: %s" packages-desired)
-  (message "add: %s" packages)
   (if packages-desired
       (nconc packages-desired packages)
-      (setq packages-desired packages))
-  (message "and now: %s" packages-desired))
+      (setq packages-desired packages)))
 
 (provide 'setup-package)

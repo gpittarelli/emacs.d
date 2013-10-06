@@ -7,3 +7,6 @@
 [submodule "emmet"]
 	path = emmet
 	url = https://github.com/smihica/emmet.git
+[submodule "org-caldav"]
+	path = org-caldav
+	url = https://github.com/dengste/org-caldav.git

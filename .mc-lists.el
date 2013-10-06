@@ -3,6 +3,8 @@
 
 (setq mc/cmds-to-run-for-all
       '(
+        TeX-insert-backslash
+        copy-line
         autopair-insert-opening
         autopair-insert-or-skip-quote
         autopair-skip-close-maybe
@@ -11,6 +13,9 @@
         cua-cut-region
         cua-insert-char-rectangle
         cua-paste
+        fill-paragraph
+        indent-for-tab-command
+        kill-and-join-forward
         eval-and-replace
         fill-paragraph
         indent-for-tab-command
