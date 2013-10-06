@@ -24,7 +24,7 @@
 (defun packages-install (&rest packages)
   (mapc (lambda (package)
           (when (not (package-installed-p package))
-            (package-install name)))
+            (package-install package)))
   packages))
 
 (defun packages--filter (condp lst)
